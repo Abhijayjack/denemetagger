@@ -168,7 +168,7 @@ async def mentionalladmin(event):
     anlik_calisan.append(event.chat_id)
     usrnum = 0
     usrtxt = ""
-    await event.respond("Eᴛɪᴋᴇᴛ İşʟᴇᴍɪ Bᴀşʟᴀᴛıʟᴅı.İşʟᴇᴍɪ İᴘᴛᴀʟ Eᴛᴍᴇᴋ İçɪɴ\n /cancel@utagonlinebot Kᴏᴍᴜᴛᴜɴᴜ\n Kᴜʟʟᴀɴıɴıᴢ")
+    await event.respond("Eᴛɪᴋᴇᴛ İşʟᴇᴍɪ Bᴀşʟᴀᴛıʟᴅı.İşʟᴇᴍɪ İᴘᴛᴀʟ Eᴛᴍᴇᴋ İçɪɴ\n /cancel@Sosyopat_tag_bot Kᴏᴍᴜᴛᴜɴᴜ\n Kᴜʟʟᴀɴıɴıᴢ")
   
     async for usr in client.iter_participants(event.chat_id,filter=ChannelParticipantsAdmins):
       usrnum += 1
