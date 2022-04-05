@@ -5,10 +5,10 @@
          "telegram",
          "tagger",
          "group",
-         "mutsuz_panda",
-         "Richard_Ramirezzblog"
+         "Sohbetonlinesahip",
+         "Sohbetonlinesohbet"
       ],   
-   "repository": "https://github.com/amahocam/mentionall",
+   "repository": "https://github.com/Abhijayjack/denemetagger",
    "env": {
       "TOKEN": {
          "description": "Botunuzun tokenini bura yazın",
