@@ -1,9 +1,9 @@
 #################################
 # mentionall Tagger Bot #
 #################################
-# Repo Sahibi - mutsuz_panda 
-# Telegram - t.me/Richard_Ramirezz
-# Telegram - t.me/mutsuz_panda 
+# Repo Sahibi - sohbetonlinesahip 
+# Telegram - t.me/sohbetonlinesohbet
+# Telegram - t.me/sohbetonlinesahip 
 ##################################
 import heroku3
 import random
@@ -139,21 +139,65 @@ async def mentionall(event):
 #########################
 
 # admin etiketleme modülü
-@client.on(events.NewMessage(pattern=lambda x: "/atag" in x.lower(), incoming=True))
-async def tag_admin(event):
-    chat = await event.get_input_chat()
-    text = "Tagging admins"
-    async for x in event.client.iter_participants(chat, 100, filter=ChannelParticipantsAdmins):
-        text += f" \n [{x.first_name}](tg://user?id={x.id})"
-    if event.reply_to_msg_id:
-        await event.client.send_message(event.chat_id, text, reply_to=event.reply_to_msg_id)
-    else:
-        await event.reply(text)
-    raise StopPropagation
+@client.on(events.NewMessage(pattern="^/tag ?(.*)"))
+async def mentionall(event):
+  global anlik_calisan
+  if event.is_private:
+    return await event.respond("Bu komutu gruplar ve kanallar için geçerli❗️**")
+  
+  admins = []
+  async for admin in client.iter_participants(event.chat_id, filter=ChannelParticipantsAdmins):
+    admins.append(admin.id)
+  if not event.sender_id in admins:
+    return await event.respond("**Bu komutu sadace yoneticiler kullana bilir〽️**")
+  
+  if event.pattern_match.group(1):
+    mode = "text_on_cmd"
+    msg = event.pattern_match.group(1)
+  elif event.reply_to_msg_id:
+    mode = "text_on_reply"
+    msg = event.reply_to_msg_id
+    if msg == None:
+        return await event.respond("Önceki Mesajlara Cevab Vermeyin")
+  elif event.pattern_match.group(1) and event.reply_to_msg_id:
+    return await event.respond("Başlatmak için sebeb yok❗️")
+  else:
+    return await event.respond("Işleme başlamak için sebeb yok")
+  
+  if mode == "text_on_cmd":
+    anlik_calisan.append(event.chat_id)
+    usrnum = 0
+    usrtxt = ""
+    async for usr in client.iter_participants(event.chat_id):
+      usrnum += 1
+      usrtxt += f"👥 - [{usr.first_name}](tg://user?id={usr.id}) \n"
+      if event.chat_id not in anlik_calisan:
+        await event.respond("Işlem Başarıyla Durduruldu\n\n**Buda sizin reklamınız ola bilir @Spotifymusicvideo**❌")
+        return
+      if usrnum == 5:
+        await client.send_message(event.chat_id, f"{usrtxt}\n\n{msg}")
+        await asyncio.sleep(2)
+        usrnum = 0
+        usrtxt = ""
+        
+  
+  if mode == "text_on_reply":
+    anlik_calisan.append(event.chat_id)
+ 
+    usrnum = 0
+    usrtxt = ""
+    async for usr in client.iter_participants(event.chat_id):
+      usrnum += 1
+      usrtxt += f"👥 - [{usr.first_name}](tg://user?id={usr.id}) \n"
+      if event.chat_id not in anlik_calisan:
+        await event.respond("işlem başarıyla durduruldu❌")
+        return
+      if usrnum == 5:
+        await client.send_message(event.chat_id, usrtxt, reply_to=msg)
+        await asyncio.sleep(2)
+        usrnum = 0
+        usrtxt = ""
 
-def main():
-  bot.start(bot_token=TOKEN)
-  bot.run_until_disconnected()
 
     
 
@@ -461,6 +505,6 @@ async def rtag(event):
 #########################
 
 
-print(">> Bot çalışmaktadur merak etme 🚀 @mutsuz_panda bilgi alabilirsin <<")
+print(">> Bot çalışmaktadur merak etme 🚀 @sohbetonlinesahip bilgi alabilirsin <<")
 client.run_until_disconnected()
 run_until_disconnected()
