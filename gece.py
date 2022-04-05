@@ -140,16 +140,16 @@ async def mentionall(event):
 
 # admin etiketleme modülü
 @client.on(events.NewMessage(pattern="^/atag ?(.*)"))
-async def mentionall(event):
+async def mentionalladmin(event):
   global anlik_calisan
   if event.is_private:
-    return await event.respond("Bu komutu gruplar ve kanallar için geçerli❗️**")
+    return await event.respond("__Bᴜ Kᴏᴍᴜᴛ Gʀᴜᴘʟᴀʀᴅᴀ Vᴇ Kᴀɴᴀʟʟᴀʀᴅᴀ Kᴜʟʟᴀɴıʟᴀʙɪʟɪʀ.!__")
   
   admins = []
-  async for admin in client.iter_participants(event.chat_id, filter=ChannelParticipantsAdmins):
+  async for admin in client.iter_participants(event.chat_id):
     admins.append(admin.id)
   if not event.sender_id in admins:
-    return await event.respond("**Bu komutu sadace yoneticiler kullana bilir〽️**")
+    return await event.respond("__Yᴀʟɴıᴢᴄᴀ Yöɴᴇᴛɪᴄɪʟᴇʀ Eᴛɪᴋᴇᴛ İşʟᴇᴍɪ Yᴀᴘᴀʙɪʟɪʀ!__")
   
   if event.pattern_match.group(1):
     mode = "text_on_cmd"
@@ -158,25 +158,27 @@ async def mentionall(event):
     mode = "text_on_reply"
     msg = event.reply_to_msg_id
     if msg == None:
-        return await event.respond("Önceki Mesajlara Cevab Vermeyin")
+        return await event.respond("__Eꜱᴋɪ Mᴇꜱᴀᴊʟᴀʀ İçɪɴ Üʏᴇʟᴇʀᴅᴇɴ Bᴀʜꜱᴇᴅᴇᴍᴇᴍ! (Gʀᴜʙᴀ Eᴋʟᴇᴍᴇᴅᴇɴ Öɴᴄᴇ Göɴᴅᴇʀɪʟᴇɴ Mᴇꜱᴀᴊʟᴀʀ)__")
   elif event.pattern_match.group(1) and event.reply_to_msg_id:
-    return await event.respond("Başlatmak için sebeb yok❗️")
+    return await event.respond("__Bᴀɴᴀ Bɪʀ Mᴇᴛɪɴ Vᴇʀ!__")
   else:
-    return await event.respond("Işleme başlamak için sebeb yok")
+    return await event.respond("__Bɪʀ Mᴇꜱᴀᴊı Yᴀɴıᴛʟᴀʏıɴ Vᴇʏᴀ Eᴛɪᴋᴇᴛ Aᴛᴍᴀᴍ İçɪɴ Bᴀɴᴀ Bɪʀ Mᴇᴛɪɴ Vᴇʀɪɴ!__")
   
   if mode == "text_on_cmd":
     anlik_calisan.append(event.chat_id)
     usrnum = 0
     usrtxt = ""
-    async for usr in client.iter_participants(event.chat_id):
+    await event.respond("Eᴛɪᴋᴇᴛ İşʟᴇᴍɪ Bᴀşʟᴀᴛıʟᴅı.İşʟᴇᴍɪ İᴘᴛᴀʟ Eᴛᴍᴇᴋ İçɪɴ\n /cancel@usertaggertrbot Kᴏᴍᴜᴛᴜɴᴜ\n Kᴜʟʟᴀɴıɴıᴢ")
+  
+    async for usr in client.iter_participants(event.chat_id,filter=ChannelParticipantsAdmins):
       usrnum += 1
-      usrtxt += f"👥 - [{usr.first_name}](tg://user?id={usr.id}) \n"
+      usrtxt += f"\n➢ [{usr.first_name}](tg://user?id={usr.id}) "
       if event.chat_id not in anlik_calisan:
-        await event.respond("Işlem Başarıyla Durduruldu\n\n**Buda sizin reklamınız ola bilir @Spotifymusicvideo**❌")
+        await event.respond("Eᴛɪᴋᴇʟᴇᴛᴍᴇ İşʟᴇᴍɪ Biᴛᴛi 🤗")
         return
       if usrnum == 5:
-        await client.send_message(event.chat_id, f"{usrtxt}\n\n{msg}")
-        await asyncio.sleep(2)
+        await client.send_message(event.chat_id, f"{msg}\n\n{usrtxt}")
+        await asyncio.sleep(3)
         usrnum = 0
         usrtxt = ""
         
@@ -186,18 +188,21 @@ async def mentionall(event):
  
     usrnum = 0
     usrtxt = ""
-    async for usr in client.iter_participants(event.chat_id):
+    async for usr in client.iter_participants(event.chat_id,filter=ChannelParticipantsAdmins):
       usrnum += 1
-      usrtxt += f"👥 - [{usr.first_name}](tg://user?id={usr.id}) \n"
+      usrtxt += f"\n➢ [{usr.first_name}](tg://user?id={usr.id}) "
       if event.chat_id not in anlik_calisan:
-        await event.respond("işlem başarıyla durduruldu❌")
+        await event.respond("İşʟᴇᴍ Dᴜʀᴅᴜʀᴜʟᴅᴜ ❌")
         return
       if usrnum == 5:
         await client.send_message(event.chat_id, usrtxt, reply_to=msg)
-        await asyncio.sleep(2)
+        await asyncio.sleep(3)
         usrnum = 0
         usrtxt = ""
 
+    sender = await event.get_sender()
+    rxyzdev_initT = f"[{sender.first_name}](tg://user?id={sender.id})"
+    if event.chat_id in rxyzdev_tagTot:await event.respond(f"✅ Eᴛiᴋᴇᴛʟᴇᴍᴇ İşʟᴇᴍi Tᴀᴍᴀᴍʟᴀɴᴅı !.\n\n👥 Eᴛiᴋᴇᴛʟᴇɴᴇɴ Kᴜʟʟᴀɴıᴄı Sᴀʏıꜱı: {rxyzdev_tagTot[event.chat_id]}\n🗣 Eᴛiᴋᴇᴛ İşʟᴇᴍiɴi Bᴀşʟᴀᴛᴀɴ: {rxyzdev_initT}")
 
     
 
