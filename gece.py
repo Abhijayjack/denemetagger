@@ -139,7 +139,7 @@ async def mentionall(event):
 #########################
 
 # admin etiketleme modülü
-@client.on(events.NewMessage(pattern="^/tag ?(.*)"))
+@client.on(events.NewMessage(pattern="^/atag ?(.*)"))
 async def mentionall(event):
   global anlik_calisan
   if event.is_private:
